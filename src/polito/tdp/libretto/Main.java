@@ -10,6 +10,7 @@ package polito.tdp.libretto;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import polito.tdp.libretto.model.Model;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
@@ -19,8 +20,20 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("Libretto.fxml"));
-			Scene scene = new Scene(root,400,400);
+			
+			//spezzol il controller per poter avere un riferimento al model con cui i metodi devono lavorare
+			
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("Libretto.fxml"));
+			BorderPane root = (BorderPane) loader.load();
+			
+			//creo il modello
+			
+			LibrettoController controller = loader.getController(); 
+			
+			Model model = new Model();
+			controller.setModel(model);
+			
+			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
