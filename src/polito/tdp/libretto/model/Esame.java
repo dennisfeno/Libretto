@@ -24,7 +24,7 @@ public class Esame {
 	// private Docente docente ; 
 	// mi farebbe piacere gestire l'elenco dei docenti. per oggi ci accontentiamo della prima
 
-	private Boolean superato ;
+	private boolean superato ;
 	private int voto ;
 	private LocalDate dataSuperamento ; //non usare Date da java.util perché "fa cagare"
 	
@@ -90,7 +90,7 @@ public class Esame {
 	/**
 	 * @return the superato
 	 */
-	public Boolean getSuperato() {
+	public boolean getSuperato() {
 		return superato;
 	}
 
