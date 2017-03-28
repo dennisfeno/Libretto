@@ -2,10 +2,10 @@ package polito.tdp.libretto.model;
 import java.util.ArrayList;
 import java.util.List;
 
-//model è la classe principale che gestisce i dati dell'esame
-// il modello deve permettere di inserire all'interfaccia utente quello di cui avrò bisogno
-// andiamo avanti sempre in maniera incrementale
-// cerchiamo di usare poco le variabili semplici
+import polito.tdp.libretto.db.EsameDAO;
+
+// cambio solamente l'implementazione del model, se ho fatto bene le cose non dovrei avere problemi
+// mi piacerebbe separare i vari livelli
 
 public class Model {
 
@@ -22,22 +22,11 @@ public class Model {
 	 * @return true se l'ha inserito, false se esisteva già e non l'ho potuto inserire
 	 */
 	
-	public boolean addEsame(Esame e){ //io non ti espongo la lista, ti faccio fare solo quello che voglio io
-		/*
-		 * leggendo la documentazione
-		 * Returns true if this list contains the specified element. 
-		 * More formally, returns true if and only if this list contains at least one element e 
-		 * such that (o==null ? e==null : o.equals(e)).
-		 */
-		if ( !esami.contains(e)){
-			esami.add(e) ;
-			return true;
-		}
-		else {
-			//o ritorno un boolean o lancio un'eccezione
-			return false ;
-		}
+	public boolean addEsame (Esame e) {
+		EsameDAO dao = new EsameDAO() ;
+		return dao.create(e) ;
 	}
+	
 	/**
 	 * ricerca se esiste un esame con il codice specificato
 	 * se esiste lo resituisce, altrimenti restituisce null.
@@ -46,16 +35,13 @@ public class Model {
 	 */
 	
 	public Esame trovaEsame(String codice){
-		//indexOf e contains fanno ricerche
+
+		EsameDAO dao = new EsameDAO() ;
 		
-		//this.esami.indexOf(codice) non posso farlo perché si aspetta un oggetto della lista
+		Esame e = dao.find(codice) ;
 		
-		int pos = this.esami.indexOf( new Esame(codice,null,null)) ; // uso indexOf che sicuramente sarà meglio di quello che scrivo io
+		return e ; 
 		
-		if (pos == -1)
-			return null ;
-		else
-			return esami.get(pos) ;
 	}
 	
 }
